@@ -1,0 +1,45 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Counter Application</h1>
+    <button id="getCounterBtn">Get Counter</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('getCounterBtn').addEventListener('click', function() {
+            fetch('/counter')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = `Counter: ${data.counter}`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerText = 'Error fetching counter';
+                });
+        });
+    </script>
+</body>
+</html>
